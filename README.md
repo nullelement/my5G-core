@@ -96,8 +96,8 @@ sudo systemctl stop ufw
 
 Download the source code:
 ```
-git clone https://github.com/my5G/my5Gcore.git
-cd my5Gcore
+git clone https://github.com/my5G/my5G-core.git
+cd my5G-core
 git checkout master
 git submodule sync
 git submodule update --init --jobs `nproc`
