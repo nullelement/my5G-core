@@ -1,46 +1,126 @@
-<p align="center">
-<a href="https://free5gc.org"><img width="40%" src="https://forum.free5gc.org/uploads/default/original/1X/324695bfc6481bd556c11018f2834086cf5ec645.png" alt="free5GC"/></a>
-</p>
-
-<p align="center">
-<a href="https://github.com/free5gc/free5gc/releases"><img src="https://img.shields.io/github/v/release/free5gc/free5gc?color=orange" alt="Release"/></a>
-<a href="https://github.com/free5gc/free5gc/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/free5gc/free5gc?color=blue" alt="License"/></a>
-<a href="https://forum.free5gc.org"><img src="https://img.shields.io/discourse/topics?server=https%3A%2F%2Fforum.free5gc.org&color=lightblue" alt="Forum"/></a>
-<a href="https://www.codefactor.io/repository/github/free5gc/free5gc"><img src="https://www.codefactor.io/repository/github/free5gc/free5gc/badge" alt="CodeFactor" /></a>
-<a href="https://goreportcard.com/report/github.com/free5gc/free5gc"><img src="https://goreportcard.com/badge/github.com/free5gc/free5gc" alt="Go Report Card" /></a>
-<a href="https://github.com/free5gc/free5gc/pulls"><img src="https://img.shields.io/badge/PRs-Welcome-brightgreen" alt="PRs Welcome"/></a>
-</p>
+# my5G-core
 
 
-## Table of Contents
+![GitHub](https://img.shields.io/github/license/LABORA-INF-UFG/my5G-core?color=blue) 
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/LABORA-INF-UFG/my5G-core) ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/LABORA-INF-UFG/my5G-core) 
+![GitHub last commit](https://img.shields.io/github/last-commit/LABORA-INF-UFG/my5G-core)
+![GitHub contributors](https://img.shields.io/github/contributors/LABORA-INF-UFG/my5G-core)
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<img width="20%" src="docs/media/img/my5g-logo.png" alt="my5g-core"/>
 
-
-- [Hardware Tested](#hardware-tested)
-- [Questions](#questions)
-- [Recommended Environment](#recommended-environment)
+- [Description](#description)
 - [Installation](#installation)
-  - [A. Pre-requisite](#a-pre-requisite)
-  - [B. Install Control Plane Entities](#b-install-control-plane-entities)
-  - [C. Install User Plane Function (UPF)](#c-install-user-plane-function-upf)
-- [Run](#run)
-  - [A. Run Core Network](#a-run-core-network)
-  - [B. Run N3IWF (Individually)](#b-run-n3iwf-individually)
-  - [C. Run all in one with outside RAN](#c-run-all-in-one-with-outside-ran)
-  - [D. Deploy with container](#d-deploy-with-container)
-- [Test](#test)
-- [Release Note](#release-note)
+    - [Recommended environment](#recommended-environment)
+    - [Requirements](#requirements)
+    - [RAN Tester](#ran-tester)
+- [Check](#check)
+- [More information](#more-information)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+----
+# Description
 
-## Hardware Tested
-There are no gNB and UE for standalone 5GC available in the market yet.
+Currently, my5G-core is a fork of the free5GC project, with some extensions to facilitate the deployment.
 
-## Questions
-For questions and support please use the [official forum](https://forum.free5gc.org). The issue list of this repo is exclusively
-for bug reports and feature requests.
+This 5G core is very flexible and can be installed and configured in many different ways. In this document, we present only the most simple deployment, in which all network functions are installed and configure to run inside the same system.
+
+If you want to cite this tool, please use the following information:
+```
+@misc{???,
+    title={???},
+    author={???},
+    year={2020},
+    eprint={???},
+    archivePrefix={arXiv},
+    primaryClass={cs.NI}
+}
+```
+If you have questions or comments, please email us: [my5G team](mailto:my5G.initiative@gmail.com). 
+
+----
+# Installation
+
+## Recommended environment
+
+* CPU: Intel i7 processor
+* RAM: 8 GB
+* Disk space: 160 GB
+* Operating System (OS): Linux Ubuntu 18.04 or 20.04 LTS
+* Kernel verstion: > 5.4 (important for UPF only).
+
+The installation can be done directly in the host OS or inside a virtual machine (VM).
+
+## Requirements
+
+Install the necessary packages available in Ubuntu repositories:
+```
+sudo apt update && sudo apt -y install gcc cmake autoconf build-essential libtool pkg-config libmnl-dev libyaml-dev wget git net-tools mongodb
+```
+
+Make sure that MongoDB is running:
+```
+sudo systemctl start mongodb
+```
+
+Install Go (assuming there is no previous version installed):
+```
+wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
+sudo tar -C /usr/local -zxvf go1.14.4.linux-amd64.tar.gz
+mkdir -p ~/go/{bin,pkg,src}
+echo 'export GOPATH=$HOME/go' >> ~/.bashrc
+echo 'export GOROOT=/usr/local/go' >> ~/.bashrc
+echo 'export PATH=$PATH:$GOPATH/bin:$GOROOT/bin' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Install the proper version of Logrus and fatal:
+```
+go get -u github.com/sirupsen/logrus
+go get -u github.com/calee0219/fatal
+```
+
+Install the proper version of the Linux kernel module 5G GTP-U:
+```
+git clone -b v0.1.0 https://github.com/PrinzOwO/gtp5g.git
+cd gtp5g
+make clean && make && sudo make install
+```
+
+Configure the Linux host to offer routing and NAT services. In the following, **<DN_INT>** must be substituted by the name of the interface used for Internet access, e.g., **eth0** or **enp0s3**. The firewall service (i.e., **ufw**) is disabled to assure the communication of the 5G core with the outside networks.
+```
+sudo sysctl -w net.ipv4.ip_forward=1
+sudo iptables -t nat -A POSTROUTING -o <DN_INT> -j MASQUERADE
+sudo systemctl stop ufw
+```
+
+## 5G core
+
+Download the source code:
+```
+git clone https://github.com/my5G/my5Gcore.git
+cd my5Gcore
+git checkout master
+git submodule sync
+git submodule update --init --jobs `nproc`
+git submodule foreach git checkout master
+git submodule foreach git pull --jobs `nproc`
+```
+
+Install the dependencies:
+```
+go mod download
+```
+
+Compile the network functions:
+```
+make all
+```
+
+Done! The software is successfully installed.
+
+----
+# Check
+
+
 
 ## Recommended Environment
 - Software
