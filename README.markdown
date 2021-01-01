@@ -1,15 +1,14 @@
-# my5G-core
+<img width="20%" src="docs/media/img/my5g-logo.png" alt="my5g-core"/>
 
+# my5G-core
 
 ![GitHub](https://img.shields.io/github/license/my5G/my5G-core?color=blue) 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/my5G/my5G-core) ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/my5G/my5G-core) 
 ![GitHub last commit](https://img.shields.io/github/last-commit/my5G/my5G-core)
 ![GitHub contributors](https://img.shields.io/github/contributors/my5G/my5G-core)
 
-<img width="20%" src="docs/media/img/my5g-logo.png" alt="my5g-core"/>
-
 ----
-# Description
+## Description
 
 Currently, my5G-core is a fork of the free5GC project, with some extensions to facilitate the deployment.
 
@@ -28,7 +27,6 @@ If you want to cite this tool, please use the following information:
 ```
 If you have questions or comments, please email us: [my5G team](mailto:my5G.initiative@gmail.com). 
 
-----
 ## Documentation
 
 [https://github.com/my5G/my5G-core/wiki](https://github.com/my5G/my5G-core/wiki)
