@@ -617,6 +617,8 @@ func TestServiceRequest(t *testing.T) {
 	_, err = ngap.Decoder(recvMsg[:n])
 	assert.Nil(t, err)
 
+	// wait 1s
+	time.Sleep(1 * time.Second)
 	// send 14. NGAP-PDU Session Resource Setup Response
 	sendMsg, err = test.GetPDUSessionResourceSetupResponse(ue.AmfUeNgapId, ue.RanUeNgapId, ranIpAddr)
 	assert.Nil(t, err)
@@ -1351,6 +1353,8 @@ func TestXnHandover(t *testing.T) {
 	_, err = ngap.Decoder(recvMsg[:n])
 	assert.Nil(t, err)
 
+	// wait 1s
+	time.Sleep(1 * time.Second)
 	// send 14. NGAP-PDU Session Resource Setup Response
 	sendMsg, err = test.GetPDUSessionResourceSetupResponse(ue.AmfUeNgapId, ue.RanUeNgapId, ranIpAddr)
 	assert.Nil(t, err)
@@ -1536,6 +1540,8 @@ func TestPaging(t *testing.T) {
 	_, err = ngap.Decoder(recvMsg[:n])
 	assert.Nil(t, err)
 
+	// wait 1s
+	time.Sleep(1 * time.Second)
 	// send 14. NGAP-PDU Session Resource Setup Response
 	sendMsg, err = test.GetPDUSessionResourceSetupResponse(ue.AmfUeNgapId, ue.RanUeNgapId, ranIpAddr)
 	assert.Nil(t, err)
