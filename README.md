@@ -130,15 +130,35 @@ You should see several INFO messages and the last lines should be similar to the
      <img src="docs/media/img/my5G-core-RegistrationTest-OK.png"/>
 </p>
 
+Make GUTI Registration test:
+```
+./test.sh TestGUTIRegistration
+```
+
+You should see several INFO messages and the last lines should be similar to the following:
+<p align="">
+     <img src="docs/media/img/my5G-core-GUTIRegistrationTest-OK.png"/>
+</p>
+
 Make ServiceRequest test:
 ```
 ./test.sh TestServiceRequest
 ```
 
+You should see several INFO messages and the last lines should be similar to the following:
+<p align="">
+     <img src="docs/media/img/my5G-core-ServiceRequestTest-OK.png"/>
+</p>
+
 Make XnHandover test:
 ```
 ./test.sh TestXnHandover
 ```
+
+You should see several INFO messages and the last lines should be similar to the following:
+<p align="">
+     <img src="docs/media/img/my5G-core-XnHandoverTest-OK.png"/>
+</p>
 
 Make Deregistration test:
 ```
@@ -164,6 +184,12 @@ Make Paging test:
 ```
 ./test.sh TestPaging
 ```
+
+You should see several INFO messages and the last lines should be similar to the following:
+<p align="">
+     <img src="docs/media/img/my5G-core-PagingTest-OK.png"/>
+</p>
+
 
 Make N2Handover test:
 ```
