@@ -143,7 +143,7 @@ This guide assumes that you will run all 5GC elements on a single machine.
     Get Linux kernel module 5G GTP-U
     ```bash
     cd ~
-    git clone -b v0.1.0 https://github.com/PrinzOwO/gtp5g.git
+    git clone https://github.com/PrinzOwO/gtp5g.git
     ```
     Install Linux kernel module 5G GTP-U
     ```bash
