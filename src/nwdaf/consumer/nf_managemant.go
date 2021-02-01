@@ -22,10 +22,50 @@ func BuildNFInstance(context *nwdaf_context.NWDAFContext) models.NfProfile {
 	tmpVersion := strings.Split(version, ".")
 	versionUri := "v" + tmpVersion[0]
 	apiPrefix := fmt.Sprintf("%s://%s:%d", context.UriScheme, context.RegisterIPv4, context.SBIPort)
-	services := []models.NfService{
+	services := []models.NfService{ //TODO: Outras funções usam um "for" para preencher os serviços.
 		{
 			ServiceInstanceId: "nwdafdatarepository",        //TODO: Renomear para o ID correto. E excluir o código do serviço de exemplo: ServiceName_NNWDAF_DR
 			ServiceName:       models.ServiceName_NNWDAF_DR, //TODO: Renomear para o serviço correto! ServiceName_NNWDAF_ANALYTICSINFO
+			Versions: &[]models.NfServiceVersion{
+				{
+					ApiFullVersion:  version,
+					ApiVersionInUri: versionUri,
+				},
+			},
+			Scheme:          models.UriScheme(context.UriScheme),
+			NfServiceStatus: models.NfServiceStatus_REGISTERED,
+			ApiPrefix:       apiPrefix,
+			IpEndPoints: &[]models.IpEndPoint{
+				{
+					Ipv4Address: context.RegisterIPv4,
+					Transport:   models.TransportProtocol_TCP,
+					Port:        int32(context.SBIPort),
+				},
+			},
+		},
+		{
+			ServiceInstanceId: "analyticsinfo",
+			ServiceName:       models.ServiceName_NNWDAF_ANALYTICSINFO,
+			Versions: &[]models.NfServiceVersion{
+				{
+					ApiFullVersion:  version,
+					ApiVersionInUri: versionUri,
+				},
+			},
+			Scheme:          models.UriScheme(context.UriScheme),
+			NfServiceStatus: models.NfServiceStatus_REGISTERED,
+			ApiPrefix:       apiPrefix,
+			IpEndPoints: &[]models.IpEndPoint{
+				{
+					Ipv4Address: context.RegisterIPv4,
+					Transport:   models.TransportProtocol_TCP,
+					Port:        int32(context.SBIPort),
+				},
+			},
+		},
+		{
+			ServiceInstanceId: "eventssubscription",
+			ServiceName:       models.ServiceName_NNWDAF_EVENTSSUBSCRIPTION,
 			Versions: &[]models.NfServiceVersion{
 				{
 					ApiFullVersion:  version,
