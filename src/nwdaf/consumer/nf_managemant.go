@@ -24,8 +24,8 @@ func BuildNFInstance(context *nwdaf_context.NWDAFContext) models.NfProfile {
 	apiPrefix := fmt.Sprintf("%s://%s:%d", context.UriScheme, context.RegisterIPv4, context.SBIPort)
 	services := []models.NfService{
 		{
-			ServiceInstanceId: "datarepository",
-			ServiceName:       models.ServiceName_NNWDAF_DR,
+			ServiceInstanceId: "nwdafdatarepository",        //TODO: Renomear para o ID correto. E excluir o código do serviço de exemplo: ServiceName_NNWDAF_DR
+			ServiceName:       models.ServiceName_NNWDAF_DR, //TODO: Renomear para o serviço correto! ServiceName_NNWDAF_ANALYTICSINFO
 			Versions: &[]models.NfServiceVersion{
 				{
 					ApiFullVersion:  version,
