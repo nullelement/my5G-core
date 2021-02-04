@@ -3,6 +3,7 @@ package service
 import (
 	"bufio"
 	"fmt"
+	"free5gc/src/nwdaf/analyticsinfo"
 	"io"
 	"os/exec"
 	"sync"
@@ -17,7 +18,6 @@ import (
 	"free5gc/src/app"
 	"free5gc/src/nwdaf/consumer"
 	nwdaf_context "free5gc/src/nwdaf/context"
-	"free5gc/src/nwdaf/datarepository"
 	"free5gc/src/nwdaf/factory"
 	"free5gc/src/nwdaf/logger"
 	"free5gc/src/nwdaf/util"
@@ -113,7 +113,9 @@ func (nwdaf *NWDAF) Start() {
 
 	router := logger_util.NewGinWithLogrus(logger.GinLog)
 
-	datarepository.AddService(router)
+	// Order is important for the same route pattern.
+	//datarepository.AddService(router)
+	analyticsinfo.AddService(router)
 
 	nwdafLogPath := util.NwdafLogPath
 	nwdafPemPath := util.NwdafPemPath
