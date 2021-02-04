@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"free5gc/src/nwdaf/analyticsinfo"
+	"free5gc/src/nwdaf/eventssubscription"
 	"io"
 	"os/exec"
 	"sync"
@@ -116,6 +117,7 @@ func (nwdaf *NWDAF) Start() {
 	// Order is important for the same route pattern.
 	//datarepository.AddService(router)
 	analyticsinfo.AddService(router)
+	eventssubscription.AddService(router)
 
 	nwdafLogPath := util.NwdafLogPath
 	nwdafPemPath := util.NwdafPemPath
