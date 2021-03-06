@@ -28,7 +28,7 @@ Tested on my5G-core.
     - `git checkout master` by `git checkout nwdaf-001`
     - [Tutorial: my5G-core Setup](https://github.com/LABORA-INF-UFG/SBrT2020-Minicurso1/blob/master/docs/installation-dev-env-setup/core-install.md)
     
-### References:
+## References:
 - [my5G Initiative](https://my5g.github.io/)
 - [my5G-core](https://github.com/my5G/my5G-core)
 - [free5GC](https://github.com/free5gc/free5gc)  
