@@ -18,13 +18,14 @@ Tested on my5G-core.
 
 - http://localhost:29599/eventssubscription
 
-### Analyltics Info
+### Analytics Info
 
 - http://localhost:29599/analyticsinfo
 
 ## Fastest way to test
 
-- Install my5G-core using the tutorial below, but change the line
+- Install my5G-core using the tutorial below, but change the lines:
+    - `git clone https://github.com/my5G/my5G-core.git` by `https://github.com/nullelement/my5G-core.git`;
     - `git checkout master` by `git checkout nwdaf-001`
     - [Tutorial: my5G-core Setup](https://github.com/LABORA-INF-UFG/SBrT2020-Minicurso1/blob/master/docs/installation-dev-env-setup/core-install.md)
     
