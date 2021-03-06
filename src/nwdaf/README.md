@@ -24,7 +24,7 @@ Tested on my5G-core.
 
 ## Fastest way to test
 
-- Install my5G-core using the tutorial bellow but change the line:
+- Install my5G-core using the tutorial below, but change the line
     - `git checkout master` by `git checkout nwdaf-001`
     - [Tutorial: my5G-core Setup](https://github.com/LABORA-INF-UFG/SBrT2020-Minicurso1/blob/master/docs/installation-dev-env-setup/core-install.md)
     
